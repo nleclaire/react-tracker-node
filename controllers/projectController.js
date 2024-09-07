@@ -22,10 +22,22 @@ exports.getProject = async (req, res, next) => {
 };
 
 exports.createProject = async (req, res, next) => {
-  const project = await Project.create(req.body);
+  try {
+    const project = await Project.create(req.body);
+    console.log('Project received...', req.body);
 
-  res.status(201).json({
-    status: 'success',
-    project
-  })
+    res.status(201).json({
+      status: 'success',
+      project
+    });
+
+  } catch (error) {
+    console.log(error.message);
+
+    res.status(400).json({
+      status: 'failure',
+      message: error.message
+    });
+  }
+
 };

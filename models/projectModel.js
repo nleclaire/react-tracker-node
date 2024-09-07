@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Item = require('./itemModel');
 
 const projectSchema = new mongoose.Schema({
   title: {
@@ -12,6 +13,7 @@ const projectSchema = new mongoose.Schema({
     required: [true, 'A project must have a description'],
     trim: true,
   },
+  items: [Item.schema],
   createdAt: {
     type: Date,
     default: Date.now(),
