@@ -8,18 +8,34 @@ const itemSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    required: [true, 'A item must have a description'],
+    required: [true, 'Item must have a description'],
     trim: true,
   },
   status: {
     type: String,
     required: [true, 'Item must have a status'],
-    trim: true,
+    enum: ['Defined', 'In Progress', 'Completed', 'Blocked'],
+    default: 'Defined',
   },
-  itemType: {
+  owners: {
+    type: [String],
+    default: [],
+  },
+  type: {
     type: String,
-    required: [true, 'Item must have an item type'],
-    trim: true,
+    required: [true, 'Item must have a type'],
+    enum: ['story', 'bug', 'chore'],
+  },
+  complexity: {
+    type: Number,
+  },
+  tasks: {
+    type: [String],
+    default: [],
+  },
+  comments: {
+    type: [String],
+    default: [],
   },
   createdAt: {
     type: Date,
@@ -31,7 +47,3 @@ const itemSchema = new mongoose.Schema({
 const Item = mongoose.model('Item', itemSchema);
 
 module.exports = Item;
-
-
-
-// name, description, status, owners, type, complexity, tasks, comments
